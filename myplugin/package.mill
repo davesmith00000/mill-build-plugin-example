@@ -1,0 +1,24 @@
+package build.myplugin
+
+import mill.*
+import mill.scalalib.*
+import mill.scalalib.publish.*
+import mill.util.BuildInfo.{millVersion, millBinPlatform}
+
+object `package` extends ScalaModule with PublishModule {
+  def scalaVersion = "3.7.1"
+
+  def mvnDeps = Seq(mvn"com.lihaoyi::mill-libs:$millVersion")
+
+  def platformSuffix = s"_mill$millBinPlatform"
+
+  def publishVersion = "0.0.1"
+  def pomSettings = PomSettings(
+    description = "Example Mill plugin.",
+    organization = "com.example",
+    url = "https://github.com/example/myplugin",
+    licenses = Seq(License.MIT),
+    versionControl = VersionControl.github("example", "myplugin"),
+    developers = Seq(Developer("dave", "Dave", "https://github.com/davesmith00000"))
+  )
+}

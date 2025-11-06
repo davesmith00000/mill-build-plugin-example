@@ -1,0 +1,14 @@
+package build
+
+import mill.*
+import mill.scalalib.*
+import mill.meta.MillBuildRootModule
+
+import mill.api.BuildCtx
+
+object `package` extends MillBuildRootModule {
+  def scalaVersion = "3.7.1"
+
+  def customSources = Task.Sources(BuildCtx.workspaceRoot / "myplugin" / "src" / "myplugin" / "Greeter.scala")
+  def sources = Task { super.sources() ++ customSources() }
+}
