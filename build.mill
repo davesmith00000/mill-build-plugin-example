@@ -5,9 +5,7 @@ package build
 import mill.*
 import mill.scalalib.*
 
-/** My aim is to run `./mill demo.speak` from the command line.
- * The error is `type Greeter is not a member of object build_.myplugin.package_`
-*/
-object demo extends build.myplugin.Greeter {
+/** Run `./mill demo.speak` from the command line. */
+object demo extends _root_.myplugin.Greeter {
   def scalaVersion = "3.7.1"
 }
