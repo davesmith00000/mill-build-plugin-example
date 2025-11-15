@@ -4,9 +4,11 @@ import mill.*
 import mill.api.PathRef
 import mill.scalalib.*
 
+import io.circe.*
+
 trait Greeter extends ScalaModule:
 
   def speak = Task {
-    println("Hello, world!")
+    println(Json.fromString("Hello, world!"))
   }
 
