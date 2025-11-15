@@ -1,4 +1,4 @@
-package build.myplugin
+package build.plugincore
 
 import mill.*
 import mill.scalalib.*
@@ -7,17 +7,14 @@ import mill.util.BuildInfo.{millVersion, millBinPlatform}
 
 object `package` extends ScalaModule with PublishModule {
   def scalaVersion = "3.7.1"
-  override def moduleDeps = Seq(build.plugincore)
-
   def mvnDeps = Seq(
-    mvn"com.lihaoyi::mill-libs:$millVersion"
+    mvn"io.circe::circe-core:0.14.10"
   )
 
   def platformSuffix = s"_mill$millBinPlatform"
-
   def publishVersion = "0.0.1"
   def pomSettings = PomSettings(
-    description = "Example Mill plugin.",
+    description = "Core utilities for the example Mill plugin.",
     organization = "com.example",
     url = "https://github.com/example/myplugin",
     licenses = Seq(License.MIT),

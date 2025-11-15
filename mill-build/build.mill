@@ -9,8 +9,13 @@ import mill.api.BuildCtx
 object `package` extends MillBuildRootModule {
   def scalaVersion = "3.7.1"
 
-  def customSources = Task.Sources(BuildCtx.workspaceRoot / "myplugin" / "src" / "myplugin" / "Greeter.scala")
-  def sources = Task { super.sources() ++ customSources() }
+  def greeterSources = Task.Sources(
+    BuildCtx.workspaceRoot / "myplugin" / "src" / "myplugin" / "Greeter.scala"
+  )
+  def plugincoreSources = Task.Sources(
+    BuildCtx.workspaceRoot / "plugincore" / "src" / "plugincore" / "Core.scala"
+  )
+  def sources = Task { super.sources() ++ greeterSources() ++ plugincoreSources() }
 
   def mvnDeps = Seq(
     mvn"io.circe::circe-core:0.14.10"
