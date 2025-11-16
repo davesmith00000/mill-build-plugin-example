@@ -4,8 +4,19 @@ package build
 
 import mill.*
 import mill.scalalib.*
+import mill.scalalib.publish.*
 
-/** Run `./mill demo.speak` from the command line. */
-object demo extends _root_.myplugin.Greeter {
-  def scalaVersion = "3.7.1"
-}
+trait SharedPublish extends PublishModule:
+
+  def description: String
+
+  def publishVersion = "0.0.1"
+
+  def pomSettings = PomSettings(
+    description = description,
+    organization = "com.example",
+    url = "https://github.com/example/myplugin",
+    licenses = Seq(License.MIT),
+    versionControl = VersionControl.github("example", "myplugin"),
+    developers = Seq(Developer("dave", "Dave", "https://github.com/davesmith00000"))
+  )

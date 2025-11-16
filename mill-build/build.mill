@@ -6,18 +6,36 @@ import mill.meta.MillBuildRootModule
 
 import mill.api.BuildCtx
 
-object `package` extends MillBuildRootModule {
+object `package` extends MillBuildRootModule:
   def scalaVersion = "3.7.1"
 
   def greeterSources = Task.Sources(
-    BuildCtx.workspaceRoot / "myplugin" / "src" / "myplugin" / "Greeter.scala"
+    BuildCtx.workspaceRoot / "myplugin" / "src"
   )
+
   def plugincoreSources = Task.Sources(
-    BuildCtx.workspaceRoot / "plugincore" / "src" / "plugincore" / "Core.scala"
+    BuildCtx.workspaceRoot / "plugincore" / "src"
   )
-  def sources = Task { super.sources() ++ greeterSources() ++ plugincoreSources() }
+
+  def sources = Task {
+    super.sources() ++ greeterSources() ++ plugincoreSources()
+  }
+
+  val circeVersion: String = "0.14.10"
 
   def mvnDeps = Seq(
-    mvn"io.circe::circe-core:0.14.10"
+    mvn"io.circe::circe-core:$circeVersion"
   )
-}
+
+  def generatedSources = Task {
+    os.write(
+      Task.dest / "DepVersions.scala",
+      s"""
+         |package millbuild
+         |object DepVersions{
+         |  def circeVersion = "$circeVersion"
+         |}
+      """.stripMargin
+    )
+    super.generatedSources() ++ Seq(PathRef(Task.dest))
+  }

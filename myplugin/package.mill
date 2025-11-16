@@ -4,9 +4,13 @@ import mill.*
 import mill.scalalib.*
 import mill.scalalib.publish.*
 import mill.util.BuildInfo.{millVersion, millBinPlatform}
+import mill.api.Task.Simple
 
-object `package` extends ScalaModule with PublishModule {
+import build.SharedPublish
+
+object `package` extends ScalaModule, SharedPublish:
   def scalaVersion = "3.7.1"
+
   override def moduleDeps = Seq(build.plugincore)
 
   def mvnDeps = Seq(
@@ -15,13 +19,4 @@ object `package` extends ScalaModule with PublishModule {
 
   def platformSuffix = s"_mill$millBinPlatform"
 
-  def publishVersion = "0.0.1"
-  def pomSettings = PomSettings(
-    description = "Example Mill plugin.",
-    organization = "com.example",
-    url = "https://github.com/example/myplugin",
-    licenses = Seq(License.MIT),
-    versionControl = VersionControl.github("example", "myplugin"),
-    developers = Seq(Developer("dave", "Dave", "https://github.com/davesmith00000"))
-  )
-}
+  def description = "Example Mill plugin."
