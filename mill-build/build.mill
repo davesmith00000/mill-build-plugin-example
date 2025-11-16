@@ -37,5 +37,6 @@ object `package` extends MillBuildRootModule:
          |  def circeVersion = "$circeVersion"
       """.stripMargin
     )
+    
     super.generatedSources() ++ Seq(PathRef(Task.dest))
   }
