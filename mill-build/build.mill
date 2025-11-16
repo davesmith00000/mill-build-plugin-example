@@ -32,9 +32,9 @@ object `package` extends MillBuildRootModule:
       Task.dest / "DepVersions.scala",
       s"""
          |package millbuild
-         |object DepVersions{
+         |
+         |object DepVersions:
          |  def circeVersion = "$circeVersion"
-         |}
       """.stripMargin
     )
     super.generatedSources() ++ Seq(PathRef(Task.dest))
