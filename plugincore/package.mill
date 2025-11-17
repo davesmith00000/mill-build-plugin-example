@@ -4,10 +4,11 @@ import mill.*
 import mill.scalalib.*
 import mill.scalalib.publish.*
 
+import build.Shared
 import build.SharedPublish
 
-object `package` extends ScalaModule, SharedPublish:
-  def scalaVersion = "3.7.1"
+object `package` extends Shared, SharedPublish:
+  override def scalaVersion = "3.7.1"
 
   def mvnDeps = Seq(
     mvn"io.circe::circe-core:${millbuild.DepVersions.circeVersion}"

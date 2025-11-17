@@ -24,7 +24,9 @@ object `package` extends MillBuildRootModule:
   val circeVersion: String = "0.14.10"
 
   def mvnDeps = Seq(
-    mvn"io.circe::circe-core:$circeVersion"
+    mvn"io.circe::circe-core:$circeVersion",
+    mvn"com.goyeau::mill-scalafix_mill1:0.6.0",
+    mvn"org.typelevel::scalac-options:0.1.8"
   )
 
   def generatedSources = Task {

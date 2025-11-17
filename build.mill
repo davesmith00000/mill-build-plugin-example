@@ -1,13 +1,30 @@
 //| mill-version: 1.1.0-RC1
 //| mvnDeps: [
-//|   "com.goyeau::mill-scalafix_mill1:0.6.0"
+//|   "com.goyeau::mill-scalafix_mill1:0.6.0",
+//|   "org.typelevel::scalac-options:0.1.8"
 //| ]
 
 package build
 
 import mill.*
 import mill.scalalib.*
+import mill.scalalib.scalafmt.*
 import mill.scalalib.publish.*
+import org.typelevel.scalacoptions.*
+import com.goyeau.mill.scalafix.ScalafixModule
+
+trait Shared extends ScalafmtModule, ScalafixModule:
+  def scalaVersion = Task { "3.7.3" }
+
+  override def scalacOptions = Task {
+    super.scalacOptions() ++
+      ScalacOptions.tokensForVersion(
+        ScalaVersion.unsafeFromString(scalaVersion()),
+        ScalacOptions.default ++
+          ScalacOptions.fatalWarningOptions ++
+          Seq(ScalacOptions.languageStrictEquality)
+      )
+  }
 
 trait SharedPublish extends PublishModule:
 

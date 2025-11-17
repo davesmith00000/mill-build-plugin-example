@@ -6,10 +6,11 @@ import mill.scalalib.publish.*
 import mill.util.BuildInfo.{millVersion, millBinPlatform}
 import mill.api.Task.Simple
 
+import build.Shared
 import build.SharedPublish
 
-object `package` extends ScalaModule, SharedPublish:
-  def scalaVersion = "3.7.1"
+object `package` extends Shared, SharedPublish:
+  override def scalaVersion = "3.7.1"
 
   override def moduleDeps = Seq(build.plugincore)
 

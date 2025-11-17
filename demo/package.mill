@@ -1,5 +1,6 @@
 package build.demo
 
+import build.Shared
+
 /** Run `./mill demo.speak` from the command line. */
-object `package` extends _root_.myplugin.Greeter:
-  def scalaVersion = "3.7.1"
+object `package` extends Shared, _root_.myplugin.Greeter
